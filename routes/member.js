@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
 const conn = require("../config/DBConn.js");
 
-router.post("/MemberRegist", function (request, response) {
-    // 회원가입
+
+//회원가입 라우터
+router.post("/Regist", function (request, response) {
     console.log(request.body);
 
     let mem_id = request.body.mem_id;
@@ -24,6 +24,7 @@ router.post("/MemberRegist", function (request, response) {
             let jsonData = JSON.stringify(arr);
             console.log(jsonData);
             response.send(jsonData);
+
         } else {
             console.log(err);
         }
@@ -31,6 +32,5 @@ router.post("/MemberRegist", function (request, response) {
     //sql 명령 실행
     //conn.end();
 });
-
 
 module.exports = router;
