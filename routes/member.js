@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const conn = require("../config/DBConn.js");
 
-
 //회원가입 라우터
 router.post("/Regist", function (request, response) {
     console.log(request.body);
@@ -65,8 +64,6 @@ router.post("/Modify", function (request, response) {
     //conn.end();
 });
 
-module.exports = router;
-
 //로그인 라우터(by 강성희)
 router.post("/Login", function (request, response) {
     console.log(request.body);
@@ -107,6 +104,5 @@ router.post("/Login", function (request, response) {
     //sql 명령 실행
     //conn.end();
 });
-
 
 module.exports = router;
