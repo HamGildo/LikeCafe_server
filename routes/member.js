@@ -71,10 +71,9 @@ router.post("/Login", function (request, response) {
     let id = request.body.id;
     let pw = request.body.pw;
 
-    let sql = "select * from likecafe_db where id = ? and pw = ?";
+    let sql = "select * from member where mem_id = ? and pw = ?";
     conn.query(sql, [id, pw], function (err, rows) {
         if (!err) {
-
 
             if (rows.length > 0) {
                 // 성공
