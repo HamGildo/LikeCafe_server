@@ -24,6 +24,7 @@ router.post("/Regist", function (request, response) {
     conn.query(sql, [id, pw, name], function (err, rows) {
         if (!err) {
             console.log(rows);
+            console.log(rows);
 
             // 자바에서 단순하게 받기만 하는거면 이거 복붙해서 넣어도 됨.
             // json파일을 만들어서 안드로이드에 200 보내기 (정상적으로 보내졌는지 확인용)
