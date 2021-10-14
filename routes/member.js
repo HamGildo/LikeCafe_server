@@ -44,7 +44,7 @@ router.post("/Modify", function (request, response) {
     let sex = request.body.sex;
     let id = "test"; 
 
-    let sql = "update member set nick = ? pw = ? birth = ? sex = ? where id = ?";
+    let sql = "update member set nick = ?, pw = ?, birth = ?, gender = ? where mem_id = ?";
     conn.query(sql, [nick, pw, birth, sex, id], function (err, rows) {
         if (!err) {
             console.log(rows);
