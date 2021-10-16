@@ -41,8 +41,8 @@ router.post("/Modify", function (request, response) {
     let nick = request.body.nick;
     let pw = request.body.pw;
     let birth = request.body.birth;
-    let gender = request.body.sex;
-    let mem_image = request.body.image;
+    let gender = request.body.gender;
+    let mem_image = request.body.mem_image;
     let mem_id = "test"; 
 
     
