@@ -41,12 +41,14 @@ router.post("/Modify", function (request, response) {
     let nick = request.body.nick;
     let pw = request.body.pw;
     let birth = request.body.birth;
-    let sex = request.body.sex;
-    let id = "test"; 
-    let img = request.body.image;
+    let gender = request.body.sex;
+    let mem_image = request.body.image;
+    let mem_id = "test"; 
 
-    let sql = "update member set nick = ?, pw = ?, birth = ?, gender = ?, image = ? where mem_id = ?";
-    conn.query(sql, [nick, pw, birth, sex, image, id], function (err, rows) {
+    
+
+    let sql = "update member set nick = ?, pw = ?, birth = ?, gender = ?, mem_image = ? where mem_id = ?";
+    conn.query(sql, [nick, pw, birth, gender, mem_image, mem_id], function (err, rows) {
         if (!err) {
             console.log(rows);
             let arr = new Array();
