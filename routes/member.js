@@ -153,6 +153,34 @@ router.post("/Nick", function (request, response) {
 
 });
 
+// 회원 정보를 가져오는 라우터
+router.post("/MemberInfo", function (request, response) {
+    console.log(request.body);
+    let mem_id = request.body.mem_id;
+
+    let sql = "select * from member where mem_id = ?";
+    conn.query(sql, [mem_id], function (err, rows) {
+        if (!err) {
+            console.log(rows);
+            let arr = new Array(); 
+            let data = new Object();
+
+            // id로 요청하면 어차피 row는 1개만 나옴 (id는 유일값)
+            data.nick = rows[0].nick;
+            arr.push(data);
+             
+            let jsonData = JSON.stringify(arr);
+        
+            console.log(jsonData);
+            response.send(jsonData);
+             
+        } else {
+            console.log(err);
+        }
+    });
+
+});
+
 
 
 
