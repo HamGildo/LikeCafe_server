@@ -59,5 +59,59 @@ router.post("/ZzimSel", function (request, response) {
     });
 });
 
+router.post("/Insert", function (request, response) {
+    console.log(request.body);
+
+    let cafe_id = request.body.cafe_id;
+    cafe_id = parseInt(cafe_id);
+    let mem_id = request.body.mem_id;
+
+    let sql = "insert into zzim values(?, ?)";
+    console.log(sql);
+    conn.query(sql, [mem_id, cafe_id], function (err, rows) {
+        if (!err) {
+            console.log(rows);  
+
+            let arr = new Array();
+            let data = new Object();
+            data.status = "200";
+            arr.push(data);
+            let jsonData = JSON.stringify(arr);
+            console.log(jsonData);
+            response.send(jsonData);
+
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+router.post("/Delete", function (request, response) {
+    console.log(request.body);
+
+    let cafe_id = request.body.cafe_id;
+    cafe_id = parseInt(cafe_id);
+    let mem_id = request.body.mem_id;
+
+    let sql = "delete from zzim where mem_id = ? and cafe_id = ?";
+    console.log(sql);
+    conn.query(sql, [mem_id, cafe_id], function (err, rows) {
+        if (!err) {
+            console.log(rows);  
+
+            let arr = new Array();
+            let data = new Object();
+            data.status = "200";
+            arr.push(data);
+            let jsonData = JSON.stringify(arr);
+            console.log(jsonData);
+            response.send(jsonData);
+            
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 
 module.exports = router;
