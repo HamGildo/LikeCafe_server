@@ -3,13 +3,15 @@ const router = express.Router();
 
 const conn = require("../config/DBConn.js");
 
-router.post("/searchByCategory", function (request, response) {
+router.post("/SearchByCategory", function (request, response) {
     console.log(request.body);
 
     let category = request.body.category;
     let region = request.body.region;
 
+
     category = "%" + category + "%";
+    if(region == "지역선택") {region = "";}
     region = region + "%";
     
     let sql = "select * from cafe where category like ? and address like ?";
