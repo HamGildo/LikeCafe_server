@@ -41,11 +41,12 @@ router.post("/Modify", function (request, response) {
     let nick = request.body.nick;
     let pw = request.body.pw;
     let birth = request.body.birth;
-    let sex = request.body.sex;
-    let id = "test"; 
-    let img = request.body.image;
+    let sex = request.body.gender;
+    let id = request.body.id;
+    let image =request.body.mem_image; 
+    //let img = request.body.image;
 
-    let sql = "update member set nick = ?, pw = ?, birth = ?, gender = ?, image = ? where mem_id = ?";
+    let sql = "update member set nick = ?, pw = ?, birth = ?, gender = ?, mem_image = ? where mem_id = ?";
     conn.query(sql, [nick, pw, birth, sex, image, id], function (err, rows) {
         if (!err) {
             console.log(rows);
@@ -81,7 +82,7 @@ router.post("/Login", function (request, response) {
                 // 안드로이드한테도 알려줘야징~
                 let arr = new Array();
                 let data = new Object();
-                data.status = "success"; // {"ddong" : "200"}
+                data.result = "success"; // {"ddong" : "200"}
                 arr.push(data); // [{"ddong" : "200"}]
                 let jsonData = JSON.stringify(arr);
                 console.log(jsonData);
@@ -90,7 +91,7 @@ router.post("/Login", function (request, response) {
                 // 실패
                 let arr = new Array();
                 let data = new Object();
-                data.status = "fail"; // {"ddong" : "200"}
+                data.result = "fail"; // {"ddong" : "200"}
                 arr.push(data); // [{"ddong" : "200"}]
                 let jsonData = JSON.stringify(arr);
                 console.log(jsonData);
