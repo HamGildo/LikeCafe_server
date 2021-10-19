@@ -106,7 +106,7 @@ router.post("/Login", function (request, response) {
 });
 
 
-// 안드로이드로 json데이터 '닉네임' 보내기
+// 안드로이드로 json데이터 '닉네임' 보내기  (쓰레기 라우터 터치금지 by 안영상)
 router.post("/Nick", function (request, response) {
     console.log(request.body);
 
