@@ -6,7 +6,7 @@ const conn = require("../config/DBConn.js");
 router.post("/ReviewPage", function (request, response) {
     console.log(request.body);
 
-    let review_id = parseInt(request.body.review_id);
+    let review_id = "4";
     let cafe_id = parseInt(request.body.cafe_id);
     let mem_id = request.body.mem_id;
     let star = parseInt(request.body.star);
