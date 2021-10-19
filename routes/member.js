@@ -106,52 +106,7 @@ router.post("/Login", function (request, response) {
 });
 
 
-// 안드로이드로 json데이터 '닉네임' 보내기
-router.post("/Nick", function (request, response) {
-    console.log(request.body);
 
-    // 이렇게 얻은 값을 sql에 넣어서 DB에 요청한다. (DB 정의서 확인)
-    let sql = "select * from member";
-    conn.query(sql, function (err, rows) {
-        if (!err) {
-            console.log(rows);
-            let arr = new Array(); //배열 선언 (json들이 들어갈 것임)
-
-            // db로부터 받아온 값들은 row 배열에 저장되어있음
-            // for문을 통해서 select된 데이터 한 줄씩 json으로 만들어서 저장
-            for(let i=0;i<rows.length;i++){ 
-
-                let data = new Object(); //여러속성을 하나로 묶어주는 Object생성
-
-                data.mem_id = rows[i].mem_id;
-                data.pw = rows[i].pw;
-                data.nick = rows[i].nick;
-                //ex->{"id":"hot","pw":"678","nick":"Jason"}
-
-                arr.push(data);
-                //묶인 데이터를 배열에 추가
-            }
-        
-            let jsonData = JSON.stringify(arr);
-                //[{"id":"hot","pw":"678","nick":"Jason"},
-                //{"id":"smart","pw":"123","nick":"SM"},
-                //{"id":"2","pw":"2","nick":"2"},
-                //{"id":"Test","pw":"1","nick":"1"},
-                //{"id":"admin","pw":"1","nick":"1"}]
-                //배열을 json형태로 변환
-        
-            console.log(jsonData);
-        
-            response.send(jsonData);
-            //json형태의 데이터를 응답
-            //sql 명령 실행
-            //conn.end();  
-        } else {
-            console.log(err);
-        }
-    });
-
-});
 
 // 회원 정보를 가져오는 라우터
 router.post("/MemberInfo", function (request, response) {
@@ -167,8 +122,13 @@ router.post("/MemberInfo", function (request, response) {
 
             // id로 요청하면 어차피 row는 1개만 나옴 (id는 유일값)
             data.nick = rows[0].nick;
+            data.birth = rows[0].birth;
+            data.mem_image = rows[0].mem_image;
+            // 돌려주고 싶은 자료들 보내주면 됨
+
             arr.push(data);
-             
+            
+
             let jsonData = JSON.stringify(arr);
         
             console.log(jsonData);

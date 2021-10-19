@@ -3,10 +3,13 @@ const router = express.Router();
 
 const conn = require("../config/DBConn.js");
 
+
+
+// 리뷰 보내는 라우터다냥 !
 router.post("/ReviewPage", function (request, response) {
     console.log(request.body);
 
-    let review_id = "1";
+    let review_id = "4";
     let cafe_id = parseInt(request.body.cafe_id);
     let mem_id = request.body.mem_id;
     let star = parseInt(request.body.star);
