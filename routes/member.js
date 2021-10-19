@@ -167,6 +167,7 @@ router.post("/MemberInfo", function (request, response) {
 
             // id로 요청하면 어차피 row는 1개만 나옴 (id는 유일값)
             data.nick = rows[0].nick;
+            data.birth = rows[0].birth;
             arr.push(data);
              
             let jsonData = JSON.stringify(arr);
