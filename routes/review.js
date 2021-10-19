@@ -6,7 +6,7 @@ const conn = require("../config/DBConn.js");
 router.post("/ReviewPage", function (request, response) {
     console.log(request.body);
 
-    // let review_id = "1";
+    let review_id = parseInt(request.body.review_id);
     let cafe_id = parseInt(request.body.cafe_id);
     let mem_id = request.body.mem_id;
     let star = parseInt(request.body.star);
@@ -15,8 +15,8 @@ router.post("/ReviewPage", function (request, response) {
     let write_date = request.body.write_date;
     
 
-    let sql = "insert into review values (?,?,?,?,?,?)";
-    conn.query(sql, [cafe_id, mem_id, star, content, review_image, write_date], function(err, rows){
+    let sql = "insert into review values (?,?,?,?,?,?,?)";
+    conn.query(sql, [review_id, cafe_id, mem_id, star, content, review_image, write_date], function(err, rows){
         if (!err) {
             console.log(rows);
             let arr = new Array();
