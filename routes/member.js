@@ -34,6 +34,35 @@ router.post("/Regist", function (request, response) {
     //conn.end();
 });
 
+// 회원탈퇴 라우터 (by 안영상)
+router.post("/Delete", function (request, response) {
+    console.log(request.body);
+
+    let mem_id = request.body.mem_id; 
+
+    let sql = "delete from member where mem_id = ?";
+    conn.query(sql, [mem_id], function (err, rows) {
+        if (!err) {
+            console.log(rows);
+            let arr = new Array();
+            let data = new Object();
+            data.status = "200";
+            arr.push(data);
+            let jsonData = JSON.stringify(arr);
+            console.log(jsonData);
+            response.send(jsonData);
+
+        } else {
+            console.log(err);
+        }
+    });
+    //sql 명령 실행
+    //conn.end();
+});
+
+
+
+
 // 회원수정 라우터 (by 안영상)
 router.post("/Modify", function (request, response) {
     console.log(request.body);
