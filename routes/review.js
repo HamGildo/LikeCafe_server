@@ -82,7 +82,7 @@ router.post("/SelectByCafeId", function (request, response) {
     let cafe_id = request.body.cafe_id;
     cafe_id = parseInt(cafe_id);
     
-    let sql = "select * from review r, cafe c where r.cafe_id = c.cafe_id and r.cafe_id = ?"
+    let sql = "select * from review r, member m where r.mem_id = m.mem_id and r.cafe_id = ?;"
     conn.query(sql, [cafe_id], function (err, rows) {
         if (!err) {
             console.log(rows);
@@ -93,8 +93,8 @@ router.post("/SelectByCafeId", function (request, response) {
 
                 data.review_id = rows[i].review_id;
                 data.cafe_id = rows[i].cafe_id;
-                data.cafe_name = rows[i].cafe_name;
                 data.mem_id = rows[i].mem_id;
+                data.nick = rows[i].nick;
                 data.star = rows[i].star;
                 data.content = rows[i].content;
                 data.review_image = rows[i].review_image;
