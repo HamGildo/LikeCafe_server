@@ -87,13 +87,12 @@ router.post("/SelectByMemId", function (request, response) {
 router.post("/ReviewDele", function (request, response) {
     console.log(request.body);
 
-    let cafe_id = request.body.cafe_id;
-    cafe_id = parseInt(cafe_id);
-    let mem_id = request.body.mem_id;
-
-    let sql = "delete from review where mem_id = ? and cafe_id = ?";
+    let review_id = request.body.review_id;
+    review_id = parseInt(review_id);
+    
+    let sql = "delete from review where review_id = ?";
     console.log(sql);
-    conn.query(sql, [mem_id, cafe_id], function (err, rows) {
+    conn.query(sql, [review_id], function (err, rows) {
         if (!err) {
             console.log(rows);  
 
