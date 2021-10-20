@@ -12,7 +12,7 @@ router.post("/Regist", function (request, response) {
     let birth = request.body.birth;
     let gender = request.body.gender;
 
-    let sql = "insert into member values(?, ?, ?, ?, ?)";
+    let sql = "insert into member(mem_id, pw, nick, birth, gender) values(?, ?, ?, ?, ?)";
     conn.query(sql, [mem_id, pw, nick, birth, gender], function (err, rows) {
         if (!err) {
             console.log(rows);
