@@ -72,7 +72,7 @@ router.post("/Modify", function (request, response) {
     let birth = request.body.birth;
     let gender = request.body.gender;
     let mem_image = request.body.mem_image;
-    let mem_id = "test"; 
+    let mem_id = request.body.id;
 
     let sql = "update member set nick = ?, pw = ?, birth = ?, gender = ?, mem_image = ? where mem_id = ?";
     conn.query(sql, [nick, pw, birth, gender, mem_image, mem_id], function (err, rows) {
