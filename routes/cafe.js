@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
+const fs = require("fs");
+const sharp = require("sharp");
+const mysql = require("mysql");
 const conn = require("../config/DBConn.js");
 
 router.post("/SearchByCategory", function (request, response) {
@@ -26,7 +28,8 @@ router.post("/SearchByCategory", function (request, response) {
 
                 data.cafe_id = rows[i].cafe_id;
                 data.cafe_name = rows[i].cafe_name;
-                data.cafe_image = rows[i].cafe_image;
+                //data.cafe_image = rows[i].cafe_image;
+                data.cafe_image = encodeImage(rows[i].cafe_id, rows[i].cafe_name);
                 data.address = rows[i].address;
                 data.business_hours = rows[i].business_hours;
                 data.holiday = rows[i].holiday;
@@ -48,6 +51,75 @@ router.post("/SearchByCategory", function (request, response) {
     });
     
 });
+
+router.post("/SearchByKeyword", function (request, response) {
+    console.log(request.body);
+
+    let keyword = request.body.keyword;
+    keyword = keyword.slice(0, -1);
+    let region = request.body.region;
+    if(region == "지역선택") {region = "";}
+    region = region + "%";
+    
+    let sqlArr = keyword.split(',');
+    let sql = "select * from detailview v, cafe c where v.cafe_id = c.cafe_id"
+    sql += " and keyword_name in (";
+    sqlArr.forEach(element => {
+        sql += "?" + ",";
+    });
+    sql = sql.slice(0, -1) + ")";
+    sql += " and address like ? group by v.cafe_id";
+    sql += " having count(v.cafe_id) >= ?";
+    
+    sqlArr.push(region);
+    sqlArr.push(sqlArr.length - 1);
+    console.log(sqlArr);
+    let sqll = mysql.format(sql, sqlArr);
+    console.log(sqll);
+    conn.query(sqll, function (err, rows) {
+        if (!err) {
+            console.log(rows);  
+
+            let arr = new Array();
+            for(let i=0;i<rows.length;i++){ 
+                let data = new Object(); //여러속성을 하나로 묶어주는 Object생성
+
+                data.cafe_id = rows[i].cafe_id;
+                data.cafe_name = rows[i].cafe_name;
+                //data.cafe_image = rows[i].cafe_image;
+                data.cafe_image = encodeImage(rows[i].cafe_id, rows[i].cafe_name);
+                data.address = rows[i].address;
+                data.business_hours = rows[i].business_hours;
+                data.holiday = rows[i].holiday;
+                data.tel = rows[i].tel;
+                data.sns = rows[i].sns;
+                data.category = rows[i].category;
+
+                arr.push(data);
+                //묶인 데이터를 배열에 추가
+            }
+            let jsonData = JSON.stringify(arr);
+        
+            console.log(jsonData);
+            response.send(jsonData);
+
+        } else {
+            console.log(err);
+        }
+    });
+    
+});
+
+function encodeImage(cafe_id, cafe_name) {
+    let url = './image/';
+    url += cafe_id + '_' + cafe_name + '1.jpg';
+    url = url.replace(" ","");
+    let readFile = fs.readFileSync(url);
+    let encode = Buffer.from(readFile).toString('base64');
+    return encode;
+}
+
+
 
 
 module.exports = router;
