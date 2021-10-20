@@ -122,4 +122,38 @@ function encodeImage(cafe_id, cafe_name) {
 
 
 
+// 리뷰 페이지에 카페 정보(카페명, 주소)를 가져오는 라우터
+// (10월 20일 작성 ... )
+router.post("/CafeInfo", function (request, response) {
+    console.log(request.body);
+    let cafe_id = request.body.cafe_id;
+
+    let sql = "select * from member where cafe_id = ?";
+    conn.query(sql, [cafe_id], function (err, rows) {
+        if (!err) {
+            console.log(rows);
+            let arr = new Array(); 
+            let data = new Object();
+
+            // id로 요청하면 어차피 row는 1개만 나옴 (id는 유일값)
+            data.cafe_name = rows[0].cafe_name;
+            data.address = rows[0].address;
+            // 돌려주고 싶은 자료들 보내주면 됨
+
+            arr.push(data);
+            
+
+            let jsonData = JSON.stringify(arr);
+        
+            console.log(jsonData);
+            response.send(jsonData);
+             
+        } else {
+            console.log(err);
+        }
+    });
+
+});
+
+
 module.exports = router;
